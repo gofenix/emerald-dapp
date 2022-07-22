@@ -1,15 +1,58 @@
-.main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.welcome {
+  text-align: center;
+}
+
+.welcome h1 {
+  margin-bottom: 5px;
 }
 
 .title {
+  position: relative;
+  margin-top: 100px;
   font-size: 50px;
 }
 
 .title a {
   color: #35e8c5;
   text-decoration: none;
+}
+
+.main {
+  position: relative;
+  top: 30px;
+  width: 30vw;
+  min-width: 300px;
+  height: 30vh;
+  min-height: 400px;
+  background-color: #176f6c;
+  border: 2px solid #35e9c6;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.main .flex {
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main p {
+  position: relative;
+  font-size: 25px;
+  top: 20%;
+}
+
+.flex input {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  outline: 0;
+  border: 0px;
+  margin: 5px;
 }
