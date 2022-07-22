@@ -90,7 +90,7 @@ export default function Home() {
 
       <div className={styles.welcome}>
         <h1 className={styles.title}>
-          Welcome to my <a href="https://academy.ecdao.org" target="_blank" rel="noreferrer">Emerald DApp!</a>
+          Welcome to my <a href="https://academy.ecdao.org" target="_blank" rel="noreferrer">Flow DApp!</a>
         </h1>
         <p>This is a DApp created by Fenix.</p>
       </div>
