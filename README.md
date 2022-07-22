@@ -32,3 +32,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```
+❯ flow keys generate --network=testnet
+🙏 If you want to create an account on testnet with the generated keys use this link:
+https://testnet-faucet.onflow.org/?key=ccd268615b7e26cc5f10877825f6184ee920c8721b84b071797b9ffaefb051e7f4f96bd98fa7395f888885f7e38ec744113668b74c7d24184e92eaf27eed565e 
+
+
+🔴️ Store private key safely and don't share with anyone! 
+Private Key      a83ea5803f29bfc466dca31b52a21f3c305bd2046da6eb3c5cc40c24b60c1072 
+Public Key       ccd268615b7e26cc5f10877825f6184ee920c8721b84b071797b9ffaefb051e7f4f96bd98fa7395f888885f7e38ec744113668b74c7d24184e92eaf27eed565e 
+
+
+address:
+0xd55b625258390fec
+```
