@@ -77,6 +77,8 @@ export default function Home() {
       
           let metadata: {String: String}
       
+          let addr: Address
+      
           prepare(account: AuthAccount) {
               if account.borrow<&RaceNumberContract.NFTCollection>(from: /storage/NFTCollectionRaceNumber) == nil {
                   account.save(<-RaceNumberContract.createNFTCollection(), to: /storage/NFTCollectionRaceNumber)
@@ -100,10 +102,12 @@ export default function Home() {
               "templateType": "1",
               "imgUrl": "abcdefg"
               }
+              
+              self.addr = account.address
           }
       
           execute {
-              let newToken <- self.minterRef.mint(self.metadata)
+              let newToken <- self.minterRef.mint(self.metadata, self.addr)
               self.receiverRef.deposit(token: <-newToken)
           }
       }
@@ -134,6 +138,53 @@ export default function Home() {
     })
 
     await fcl.tx(txId).onceSealed()
+
+
+  }
+
+  async function executeMetadata() {
+    const resp = await fcl.query({
+      cadence: `
+      import RaceNumberContract from 0x16fa33cab0a7b7c2
+
+      pub fun main(id: UInt64) : {String: String} {
+      
+          let ownerAddress = RaceNumberContract.owners[id]!
+      
+          let ownerAccount = getAccount(ownerAddress)
+      
+          let receiverRef = ownerAccount.getCapability<&{RaceNumberContract.NFTReceiver}>(/public/NFTReceiverRaceNumber)
+              .borrow()
+                  ?? panic("Could not borrow receiver reference")
+      
+          return receiverRef.getTokenMetadata(id: id)
+      }
+      `,
+      args: (arg, t) => [
+        arg(3, t.UInt64)
+      ]
+    })
+
+    console.log("Response from our script TokenMeta: " + JSON.stringify(resp))
+  }
+
+  async function executeTokenOwner() {
+    const resp = await fcl.query({
+      cadence: `
+      import RaceNumberContract from 0x16fa33cab0a7b7c2
+
+      pub fun main(id: UInt64): Address {
+          let ownerAddress = RaceNumberContract.owners[id]!
+          log(ownerAddress)
+          return ownerAddress
+      }
+      `,
+      args: (arg, t) => [
+        arg(3, t.UInt64)
+      ]
+    })
+
+    console.log("Response from our script TokenMeta: " + resp)
   }
 
   async function executeScript() {
@@ -180,6 +231,8 @@ export default function Home() {
           <input onChange={(e) => setNewGreeting(e.target.value)} placeholder="Hello, Idiots!" />
           <button onClick={runTransaction} disabled={txStatus != 'Run Transaction'}>{txStatus}</button>
           <button onClick={mintRaceNumber} disabled={mintStatus != 'Mint Race Number Token'}>{mintStatus}</button>
+          <button onClick={executeMetadata} >Get Metadata</button>
+          <button onClick={executeTokenOwner} >Get TokenOwner</button>
 
         </div>
 
